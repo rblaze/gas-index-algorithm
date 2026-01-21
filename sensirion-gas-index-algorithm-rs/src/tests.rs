@@ -25,7 +25,7 @@ fn test_nox_algorithm() {
     assert_eq!(res, Some(1));
 }
 
-const DATASET: [(i32, Option<i32>); 600] = [
+const DATASET: [(u16, Option<i32>); 600] = [
     (20019, None),
     (20004, None),
     (20013, None),
