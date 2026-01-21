@@ -142,7 +142,7 @@ impl MoxModel {
                 (sraw - self.sraw_mean) / SRAW_STD_NOX * tuning_parameters.gain_factor
             }
             AlgorithmType::Voc => {
-                ((sraw - self.sraw_mean) / (-1.0 * (self.sraw_std + SRAW_STD_BONUS_VOC)))
+                ((sraw - self.sraw_mean) / (-(self.sraw_std + SRAW_STD_BONUS_VOC)))
                     * tuning_parameters.gain_factor
             }
         }
