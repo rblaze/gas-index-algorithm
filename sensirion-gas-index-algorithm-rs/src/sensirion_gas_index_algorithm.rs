@@ -249,9 +249,13 @@ impl GasIndexAlgorithm {
         self.tuning_parameters
     }
 
-    pub fn process(&mut self, mut sraw: i32, gas_index: &mut i32) {
+    /// Calculate the gas index value from the raw sensor value.
+    /// sraw - raw value from the SGP4x sensor
+    /// Returns Some(calculated gas index value), or None during initial blackout period.
+    pub fn process(&mut self, mut sraw: i32) -> Option<i32> {
         if self.uptime <= INITIAL_BLACKOUT {
             self.uptime += self.sampling_interval;
+            None
         } else {
             if sraw > 0 && (sraw < 65_000) {
                 if sraw < (self.sraw_minimum + 1) {
@@ -289,8 +293,8 @@ impl GasIndexAlgorithm {
                     self.mean_variance_estimator.mean(),
                 );
             }
+            Some((self.gas_index + 0.5) as i32)
         }
-        *gas_index = (self.gas_index + 0.5) as i32;
     }
 }
 
