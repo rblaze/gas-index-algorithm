@@ -1,3 +1,24 @@
+#[cfg(not(feature = "std"))]
+#[allow(unused)]
+trait ExtF32 {
+    fn exp(self) -> Self;
+    fn sqrt(self) -> Self;
+    fn powi(self, y: i32) -> Self;
+}
+
+#[cfg(not(feature = "std"))]
+impl ExtF32 for f32 {
+    fn exp(self) -> Self {
+        libm::expf(self)
+    }
+    fn sqrt(self) -> Self {
+        libm::sqrtf(self)
+    }
+    fn powi(self, y: i32) -> Self {
+        libm::powf(self, y as f32)
+    }
+}
+
 const DEFAULT_SAMPLING_INTERVAL: f32 = 1.0;
 const INITIAL_BLACKOUT: f32 = 45.0;
 const INDEX_GAIN: f32 = 230.0;
